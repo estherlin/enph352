@@ -72,7 +72,7 @@ Caused by disturbances to the absorption process during molecular collisions. Th
 $$
 P(\nu) = \frac{1}{2\pi}\frac{\Gamma}{(\nu - \nu_0)^2 + (\frac{\Gamma}{2})^2}
 $$
-where $FWHM = \Gamma$. 
+where $FWHM = \Gamma$. The Lorentzian distribution, is a continuous probability distribution that is the ratio of two independent normally distributed random variables if the denominator distribution has mean zero. 
 
 ### FTIR Overview
 
