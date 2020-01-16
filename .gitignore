@@ -19,3 +19,4 @@ __pypackages__/
 
 # Other
 .DS_Store
+*.icloud
