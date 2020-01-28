@@ -1,10 +1,10 @@
 # FTIR Lab Analysis
 
+##Table of Contents
+
 [TOC]
 
-## Week 1 [Jan. 18-20, 2020]
-
-### Figuring out what Resolution Means [Jan. 18-20, 2020]
+## Figuring out what Resolution Means [Jan. 18-20, 2020]
 
 From the notes, we know that the Nyquist frequency of the FTIR depends on the HeNe laser and can be calculated from the equation of the [Nyquist frequency](Nyquist frequency) $f_{\text{Nyquist}} = \frac{1}{2}f_s$:
 $$
@@ -30,7 +30,7 @@ where $N$ is the total number of points collected by the spectrometer. This allo
 
  OR. I can just do ```np.linspace(start=0, stop=15802, num=int(num_points/2))```. Since the number of points actually fluctuates for the lower resolutions. 
 
-### Software Design [Jan. 18-20, 2020]
+## Software Design [Jan. 18-23, 2020]
 
 The lab says: "*The software does not provide even the most basic of data post processing. This is a left asan exercise to the student; consider the tutorial provided here:www.essentialftir.com/tTutorial.html and the references listed below. Investigate the optimal process of a bi-directional spectrum using forward and reverse mirror direction and theapplication of the appropriate phase correction (Mertz method).*"
 
@@ -64,33 +64,37 @@ The FFT requires that the number of points in the interferogram be a power of 2.
 
 1.  An array of the same size as the zero-filled interferogram is prepared and filled with zeros.
 2.  The 256 points centered around ZPD are copied from the interferogram into the new array, but are scaled by a ramp function that is 1 at the ZPD and 0 at the beginning and end. 
-    -   **What do we do with this new array?**
-    -   *Ah so the rest of the processing steps are done on this array*
+    -   Q: **What do we do with this new array?**
+    -   A: *Ah so the rest of the processing steps are done on this array*
 3.  The interferogram data is rotated so that the right side of the data after the ZPD, including the ZPD point, is moved to the front of the array. The data to the left of the ZPD is reversed and placed at the end of the array.
 4.  The data is FFT'd, producing real and imaginary data arrays
 5.  The power spectrum is derived from the real and imaginary data from the previous step. The power spectrum is the square root of the sum of the squares of the real and imaginary data. 
-    -   **Do we normalize???**
-    -   *No*
+    -   Q: **Do we normalize???**
+    -   A: *No*
 6.  The real and imaginary data arrays are multiplied by the power spectrum (Figure 8). This is the end of the preparation of the phase correction data.
 
 ##### Step 4: The sample data is FFT's and phase corrected
 
 1.  The original interferogram is apodized using a triangular function, with the value of 0 at the left side, a value of 1 at 2 times the ZPD location, and ramping back down to 0 at the right side.
+    -   Q: **a value of 1 at 2 times the ZPD location? Isn't this problematic for bursts that are centered?**
+    -   A: Dr. Reinsberg (and other sources) say that we should just do the ramp function centered at the burst. 
 2.  The apodized interferogram is zero-filled.
 3.  The interferogram is rotated 
 4.  The interferogram is FFT'd
 5.  The complex (real and imaginary) data are multiplied by the complex phase correction data from step 3. 
-    -   **Do you multiply imaginary with imaginary, vice versa with real?**
-    -   *No you multiply complex with complex*
+    -   Q: **Do you multiply imaginary with imaginary, vice versa with real?**
+    -   A: *No you multiply complex with complex*
 
-![steps4](/Users/linesther/Downloads/steps4.png)
+![steps4](/Users/linesther/Downloads/mertzcomparison.png)
 
-##### Step 5: Ratio and conversion to absorbance
+The mertz method seems to do a lot of smoothing. Not sure if this is what we want???
+
+#### Ratio and Conversion to Transmission/Absorbance
 
 1.  IR spectroscopy is a single-beam technique. The sample data must be ratioed against a background spectrum to produce a transmittance spectrum. 
 2.  Usually the background spectrum is collected using a gas cell filled with N~2~
 3.  Calculate the transmittance per wavenumber: $\frac{I}{I_0} \equiv T = 10^{-\epsilon c d}$
-4.  Calculate the absorbance per wavenumber: $A = -\log T = \epsilon c d$
+4.  Calculate the absorbance per wavenusmber: $A = -\log T = \epsilon c d$
 
 Test results using the same spectra the transmittance and absorbance calculations:
 
@@ -98,7 +102,9 @@ Test results using the same spectra the transmittance and absorbance calculation
 
 ![abs](/Users/linesther/Downloads/abs.png)
 
-## Week 2 [Jan. 22-?, 2020]
+
+
+## Positive Control Test to see if MIR8000 is Oversampling [Jan. 23 2020]
 
 But is this thing oversampling???
 
