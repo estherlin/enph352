@@ -111,3 +111,10 @@ But is this thing oversampling???
 Note: Try the positive control
 
 Also, peaks for water: 
+
+
+
+
+
+
+
