@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>interferogram API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>interferogram</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">POWERS2 = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768]
+MAX_WAVENUMBER = 15802
+
+class Interferogram:
+    &#34;&#34;&#34;Interferogram class for all data processing, plotting, and saving. 
+
+
+    Attributes:
+        dir: directory holding data file
+        filename: filename holding data
+        datestamp: datestamp recording when data was taken
+        res: resolution of scan
+        vel: mirror velocity of scan
+        LP: low pass frequency of scan
+        HP: high pass frequency of scan
+        gain: gain of scan
+        raw_data: parsed interferogram acquisitions of scan
+        num_acq: number of acquisitions of scan
+        num_pts: number of points of each acquistion in scan
+        wavenumbers: wavenumber axis for each acquisiton
+        spectra: fourier transformed spectra with mertz correction
+    &#34;&#34;&#34;
+    
+    def __init__(self, DIR, filename, sampling=1):
+        self.dir = DIR
+        self.filename = filename
+        
+        with open(DIR+filename) as f:
+            data = f.read().splitlines() 
+        
+        # Read in params at the top of the file
+        self.datestamp = data[0].replace(&#34;#&#34;,&#34;&#34;).strip()
+        result = re.search(r&#39;\d+&#39;, data[1])
+        self.res = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[2])
+        self.vel = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[3])
+        self.LP = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[4])
+        self.HP = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[5])
+        self.gain = int(result.group())
+        
+        # Read in the raw spectrum data
+        raw = list(filter(None, data[6:]))
+        scan_idx = [i for i in range(0, len(raw)) if &#34;#&#34; in raw[i]] + [len(raw)]
+        self.raw_data = np.array(
+            [np.array(raw[scan_idx[i]+1:scan_idx[i+1]], dtype=np.float) for i in range(0, len(scan_idx)-1)]
+        )
+        self.num_acq = len(self.raw_data)
+        
+        # Find the wavenumbers
+        self.num_pts = [len(self.raw_data[i]) for i in range(0, self.num_acq)]
+        self.wavenumbers = np.array(
+            [sampling*np.linspace(0, MAX_WAVENUMBER, num=int(self.num_pts[i])/2) for i in range(0, self.num_acq)]
+        )
+
+        # Find the spectra
+        mean = np.mean(np.array([x for x in raw if &#34;#&#34; not in x], dtype=np.float))
+        self.spectra = self.fft(mean)
+
+    
+    def fft(self, mean):
+        &#34;&#34;&#34;
+        Calculates the spectra of the interferogram
+        
+        Args:
+            interferogram2: The test sample spectrum, a np.array
+
+        Returns:
+            A numpy array of transmittances. 
+        
+        Raises:
+            AssertionError: An error occurred if resolutions are different
+        &#34;&#34;&#34;
+        new_data = []
+
+        for line in self.raw_data:
+            
+            # Normalize data
+            new_line = Interferogram.normalize_raw_data(line, mean)
+            
+            # Zero fill the data
+            new_line = Interferogram.zero_fill(new_line)
+            
+            # Find the phase corrections
+            phase, re_phase, im_phase = self.mertz(new_line)
+            
+            # fft the interferogram
+            inter, re_inter, im_inter = Interferogram.fft_interferogram(line)
+            
+            # Record the spectra multiplied by correction
+            new_data.append(np.absolute(np.multiply(inter, phase)))
+        
+        return np.array(new_data)
+        
+
+    def mertz(self, data):
+        &#34;&#34;&#34;
+        Returns the phase correction data
+        The real and imaginary data arrays are multiplied by the power spectrum
+
+        Args: 
+            data: interferogram to be filled
+        Returns: 
+            fft spectrum: A numpy array of data multiplied by the power spectrum 
+            re spectrum: A real numpy array of data multiplied by the power spectrum 
+            im spectrum: A imaginary numpy array of data multiplied by the power spectrum 
+        &#34;&#34;&#34;
+        # find burtst location
+        burst = np.argmax(data)
+        
+        # Add the apodization triangular phase correction
+        copied_burst = np.zeros(len(data))
+        copied_burst[burst-128:burst+128] = data[burst-128:burst+128]
+        copied_burst = np.multiply(copied_burst, Interferogram.triangular_signal(burst, len(copied_burst)))
+        
+        # Slicing to rotate about ZPD
+        copied_burst = np.concatenate((copied_burst[burst:], copied_burst[:burst]))
+        
+        # data is FFT&#39;d, producing real and imaginary data arrays.
+        ffted = np.fft.fft(copied_burst)
+        im_data = ffted.imag
+        re_data = ffted.real
+        
+        # Find power spectrum
+        power = np.absolute(ffted)
+        
+        # The real and imaginary data arrays are multiplied by the power spectrum 
+        return np.multiply(power, ffted), np.multiply(re_data, power), np.multiply(im_data, power)
+
+
+    @staticmethod
+    def fft_interferogram(data):
+        &#34;&#34;&#34;
+        Do the fft for the interferogram, including the apodization, etc. 
+
+        Args: 
+            data: interferogram to be filled
+        Returns: 
+            fft spectrum: A numpy array of ffted data
+            re spectrum: A real numpy array of ffted data
+            im spectrum: A imaginary numpy array of ffted data
+        &#34;&#34;&#34;
+        
+        # find burst location
+        burst = np.argmax(data)
+        
+        # Apodize the whole interferogram with triangular function
+        data = np.multiply(data, Interferogram.triangular_signal(burst, len(data)))
+        
+        # zero fill
+        data = Interferogram.zero_fill(data)
+        
+        # Slicing to rotate about ZPD
+        data = np.concatenate((data[burst:], data[:burst]))
+        
+        # data is FFT&#39;d, producing real and imaginary data arrays.
+        ffted = np.fft.fft(data)
+        return ffted, ffted.real, ffted.imag
+    
+    
+    @staticmethod
+    def zero_fill(data):
+        &#34;&#34;&#34;
+        FFT requires number of points in the interferogram be a power of 2.
+        If it is not, then the size of the array is increased to the next higher power of 2 
+        and the added points are set to 0. 
+        
+        Args: 
+            data: interferogram to be filled
+        Returns: 
+            A numpy array of filled interferogram
+        &#34;&#34;&#34;
+        for i in range(10, len(POWERS2)):
+            if POWERS2[i] &gt;= len(data):
+                break
+        return np.concatenate((data, np.zeros(POWERS2[i]-len(data))))
+    
+    
+    @staticmethod
+    def normalize_raw_data(data, mean):
+        &#34;&#34;&#34;The mean of the data is subtracted from the data, brings baseline of data to 0&#34;&#34;&#34;
+        return data - mean
+    
+    @staticmethod
+    def apodize(burst, data):
+        return np.multiply(data, Interferogram.triangular_signal(burst, len(data)))
+    
+    @staticmethod
+    def triangular_signal(center, total_len):
+        window = signal.triang(2*center-1)
+        try:
+            return np.concatenate((window, np.zeros(total_len-len(window))))
+        except:
+            return window[:total_len]
+    
+    @staticmethod
+    def calc_transmittance(interferogram1, interferogram2):
+        &#34;&#34;&#34;
+        Calculates the transmittance per wavenumber
+        
+        Args:
+            interferogram1: The background spectrum, a np.array
+            interferogram2: The test sample spectrum, a np.array
+
+        Returns:
+            A numpy array of transmittances. 
+        
+        Raises:
+            AssertionError: An error occurred if resolutions are different
+        &#34;&#34;&#34;
+        assert (len(interferogram1) == len(interferogram2)), &#39;Background spectrum has {} pts, sample spectrum has {} pts&#39;.format(len(interferogram1), len(interferogram2))
+        return np.divide(interferogram2, interferogram1)
+    
+        
+    @staticmethod
+    def calc_absorbance(transmittance):
+        &#34;&#34;&#34;
+        Calculates the absorbance per wavenumber
+        
+        Args:
+            transmittance: array of transmittances
+
+        Returns:
+            A numpy array of absorbances. 
+        &#34;&#34;&#34;
+        return -np.log(transmittance)
+    
+    @staticmethod
+    def calc_snr(interferogram1, interferogram2):
+        &#34;&#34;&#34;
+        Calculates the signal to noise ratio
+        
+        Args:
+            interferogram1: The background spectrum, a np.array
+            interferogram2: The test sample spectrum, a np.array
+
+        Returns:
+            A signal to noise value
+        &#34;&#34;&#34;
+        transmittance = Interferogram.calc_transmittance(interferogram1, interferogram2)
+        noise_rms = np.sqrt(np.mean(np.square(transmittance)))
+        return 100 / noise_rms       </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="interferogram.Interferogram"><code class="flex name class">
+<span>class <span class="ident">Interferogram</span></span>
+<span>(</span><span>DIR, filename, sampling=1)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Interferogram class for all data processing, plotting, and saving. </p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>dir</code></strong></dt>
+<dd>directory holding data file</dd>
+<dt><strong><code>filename</code></strong></dt>
+<dd>filename holding data</dd>
+<dt><strong><code>datestamp</code></strong></dt>
+<dd>datestamp recording when data was taken</dd>
+<dt><strong><code>res</code></strong></dt>
+<dd>resolution of scan</dd>
+<dt><strong><code>vel</code></strong></dt>
+<dd>mirror velocity of scan</dd>
+<dt><strong><code>LP</code></strong></dt>
+<dd>low pass frequency of scan</dd>
+<dt><strong><code>HP</code></strong></dt>
+<dd>high pass frequency of scan</dd>
+<dt><strong><code>gain</code></strong></dt>
+<dd>gain of scan</dd>
+<dt><strong><code>raw_data</code></strong></dt>
+<dd>parsed interferogram acquisitions of scan</dd>
+<dt><strong><code>num_acq</code></strong></dt>
+<dd>number of acquisitions of scan</dd>
+<dt><strong><code>num_pts</code></strong></dt>
+<dd>number of points of each acquistion in scan</dd>
+<dt><strong><code>wavenumbers</code></strong></dt>
+<dd>wavenumber axis for each acquisiton</dd>
+<dt><strong><code>spectra</code></strong></dt>
+<dd>fourier transformed spectra with mertz correction</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Interferogram:
+    &#34;&#34;&#34;Interferogram class for all data processing, plotting, and saving. 
+
+
+    Attributes:
+        dir: directory holding data file
+        filename: filename holding data
+        datestamp: datestamp recording when data was taken
+        res: resolution of scan
+        vel: mirror velocity of scan
+        LP: low pass frequency of scan
+        HP: high pass frequency of scan
+        gain: gain of scan
+        raw_data: parsed interferogram acquisitions of scan
+        num_acq: number of acquisitions of scan
+        num_pts: number of points of each acquistion in scan
+        wavenumbers: wavenumber axis for each acquisiton
+        spectra: fourier transformed spectra with mertz correction
+    &#34;&#34;&#34;
+    
+    def __init__(self, DIR, filename, sampling=1):
+        self.dir = DIR
+        self.filename = filename
+        
+        with open(DIR+filename) as f:
+            data = f.read().splitlines() 
+        
+        # Read in params at the top of the file
+        self.datestamp = data[0].replace(&#34;#&#34;,&#34;&#34;).strip()
+        result = re.search(r&#39;\d+&#39;, data[1])
+        self.res = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[2])
+        self.vel = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[3])
+        self.LP = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[4])
+        self.HP = int(result.group())
+        result = re.search(r&#39;\d+&#39;, data[5])
+        self.gain = int(result.group())
+        
+        # Read in the raw spectrum data
+        raw = list(filter(None, data[6:]))
+        scan_idx = [i for i in range(0, len(raw)) if &#34;#&#34; in raw[i]] + [len(raw)]
+        self.raw_data = np.array(
+            [np.array(raw[scan_idx[i]+1:scan_idx[i+1]], dtype=np.float) for i in range(0, len(scan_idx)-1)]
+        )
+        self.num_acq = len(self.raw_data)
+        
+        # Find the wavenumbers
+        self.num_pts = [len(self.raw_data[i]) for i in range(0, self.num_acq)]
+        self.wavenumbers = np.array(
+            [sampling*np.linspace(0, MAX_WAVENUMBER, num=int(self.num_pts[i])/2) for i in range(0, self.num_acq)]
+        )
+
+        # Find the spectra
+        mean = np.mean(np.array([x for x in raw if &#34;#&#34; not in x], dtype=np.float))
+        self.spectra = self.fft(mean)
+
+    
+    def fft(self, mean):
+        &#34;&#34;&#34;
+        Calculates the spectra of the interferogram
+        
+        Args:
+            interferogram2: The test sample spectrum, a np.array
+
+        Returns:
+            A numpy array of transmittances. 
+        
+        Raises:
+            AssertionError: An error occurred if resolutions are different
+        &#34;&#34;&#34;
+        new_data = []
+
+        for line in self.raw_data:
+            
+            # Normalize data
+            new_line = Interferogram.normalize_raw_data(line, mean)
+            
+            # Zero fill the data
+            new_line = Interferogram.zero_fill(new_line)
+            
+            # Find the phase corrections
+            phase, re_phase, im_phase = self.mertz(new_line)
+            
+            # fft the interferogram
+            inter, re_inter, im_inter = Interferogram.fft_interferogram(line)
+            
+            # Record the spectra multiplied by correction
+            new_data.append(np.absolute(np.multiply(inter, phase)))
+        
+        return np.array(new_data)
+        
+
+    def mertz(self, data):
+        &#34;&#34;&#34;
+        Returns the phase correction data
+        The real and imaginary data arrays are multiplied by the power spectrum
+
+        Args: 
+            data: interferogram to be filled
+        Returns: 
+            fft spectrum: A numpy array of data multiplied by the power spectrum 
+            re spectrum: A real numpy array of data multiplied by the power spectrum 
+            im spectrum: A imaginary numpy array of data multiplied by the power spectrum 
+        &#34;&#34;&#34;
+        # find burtst location
+        burst = np.argmax(data)
+        
+        # Add the apodization triangular phase correction
+        copied_burst = np.zeros(len(data))
+        copied_burst[burst-128:burst+128] = data[burst-128:burst+128]
+        copied_burst = np.multiply(copied_burst, Interferogram.triangular_signal(burst, len(copied_burst)))
+        
+        # Slicing to rotate about ZPD
+        copied_burst = np.concatenate((copied_burst[burst:], copied_burst[:burst]))
+        
+        # data is FFT&#39;d, producing real and imaginary data arrays.
+        ffted = np.fft.fft(copied_burst)
+        im_data = ffted.imag
+        re_data = ffted.real
+        
+        # Find power spectrum
+        power = np.absolute(ffted)
+        
+        # The real and imaginary data arrays are multiplied by the power spectrum 
+        return np.multiply(power, ffted), np.multiply(re_data, power), np.multiply(im_data, power)
+
+
+    @staticmethod
+    def fft_interferogram(data):
+        &#34;&#34;&#34;
+        Do the fft for the interferogram, including the apodization, etc. 
+
+        Args: 
+            data: interferogram to be filled
+        Returns: 
+            fft spectrum: A numpy array of ffted data
+            re spectrum: A real numpy array of ffted data
+            im spectrum: A imaginary numpy array of ffted data
+        &#34;&#34;&#34;
+        
+        # find burst location
+        burst = np.argmax(data)
+        
+        # Apodize the whole interferogram with triangular function
+        data = np.multiply(data, Interferogram.triangular_signal(burst, len(data)))
+        
+        # zero fill
+        data = Interferogram.zero_fill(data)
+        
+        # Slicing to rotate about ZPD
+        data = np.concatenate((data[burst:], data[:burst]))
+        
+        # data is FFT&#39;d, producing real and imaginary data arrays.
+        ffted = np.fft.fft(data)
+        return ffted, ffted.real, ffted.imag
+    
+    
+    @staticmethod
+    def zero_fill(data):
+        &#34;&#34;&#34;
+        FFT requires number of points in the interferogram be a power of 2.
+        If it is not, then the size of the array is increased to the next higher power of 2 
+        and the added points are set to 0. 
+        
+        Args: 
+            data: interferogram to be filled
+        Returns: 
+            A numpy array of filled interferogram
+        &#34;&#34;&#34;
+        for i in range(10, len(POWERS2)):
+            if POWERS2[i] &gt;= len(data):
+                break
+        return np.concatenate((data, np.zeros(POWERS2[i]-len(data))))
+    
+    
+    @staticmethod
+    def normalize_raw_data(data, mean):
+        &#34;&#34;&#34;The mean of the data is subtracted from the data, brings baseline of data to 0&#34;&#34;&#34;
+        return data - mean
+    
+    @staticmethod
+    def apodize(burst, data):
+        return np.multiply(data, Interferogram.triangular_signal(burst, len(data)))
+    
+    @staticmethod
+    def triangular_signal(center, total_len):
+        window = signal.triang(2*center-1)
+        try:
+            return np.concatenate((window, np.zeros(total_len-len(window))))
+        except:
+            return window[:total_len]
+    
+    @staticmethod
+    def calc_transmittance(interferogram1, interferogram2):
+        &#34;&#34;&#34;
+        Calculates the transmittance per wavenumber
+        
+        Args:
+            interferogram1: The background spectrum, a np.array
+            interferogram2: The test sample spectrum, a np.array
+
+        Returns:
+            A numpy array of transmittances. 
+        
+        Raises:
+            AssertionError: An error occurred if resolutions are different
+        &#34;&#34;&#34;
+        assert (len(interferogram1) == len(interferogram2)), &#39;Background spectrum has {} pts, sample spectrum has {} pts&#39;.format(len(interferogram1), len(interferogram2))
+        return np.divide(interferogram2, interferogram1)
+    
+        
+    @staticmethod
+    def calc_absorbance(transmittance):
+        &#34;&#34;&#34;
+        Calculates the absorbance per wavenumber
+        
+        Args:
+            transmittance: array of transmittances
+
+        Returns:
+            A numpy array of absorbances. 
+        &#34;&#34;&#34;
+        return -np.log(transmittance)
+    
+    @staticmethod
+    def calc_snr(interferogram1, interferogram2):
+        &#34;&#34;&#34;
+        Calculates the signal to noise ratio
+        
+        Args:
+            interferogram1: The background spectrum, a np.array
+            interferogram2: The test sample spectrum, a np.array
+
+        Returns:
+            A signal to noise value
+        &#34;&#34;&#34;
+        transmittance = Interferogram.calc_transmittance(interferogram1, interferogram2)
+        noise_rms = np.sqrt(np.mean(np.square(transmittance)))
+        return 100 / noise_rms       </code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="interferogram.Interferogram.apodize"><code class="name flex">
+<span>def <span class="ident">apodize</span></span>(<span>burst, data)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def apodize(burst, data):
+    return np.multiply(data, Interferogram.triangular_signal(burst, len(data)))</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.calc_absorbance"><code class="name flex">
+<span>def <span class="ident">calc_absorbance</span></span>(<span>transmittance)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Calculates the absorbance per wavenumber</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>transmittance</code></strong></dt>
+<dd>array of transmittances</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A numpy array of absorbances.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def calc_absorbance(transmittance):
+    &#34;&#34;&#34;
+    Calculates the absorbance per wavenumber
+    
+    Args:
+        transmittance: array of transmittances
+
+    Returns:
+        A numpy array of absorbances. 
+    &#34;&#34;&#34;
+    return -np.log(transmittance)</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.calc_snr"><code class="name flex">
+<span>def <span class="ident">calc_snr</span></span>(<span>interferogram1, interferogram2)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Calculates the signal to noise ratio</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>interferogram1</code></strong></dt>
+<dd>The background spectrum, a np.array</dd>
+<dt><strong><code>interferogram2</code></strong></dt>
+<dd>The test sample spectrum, a np.array</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>A</code> <code>signal</code> <code>to</code> <code>noise</code> <code>value</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def calc_snr(interferogram1, interferogram2):
+    &#34;&#34;&#34;
+    Calculates the signal to noise ratio
+    
+    Args:
+        interferogram1: The background spectrum, a np.array
+        interferogram2: The test sample spectrum, a np.array
+
+    Returns:
+        A signal to noise value
+    &#34;&#34;&#34;
+    transmittance = Interferogram.calc_transmittance(interferogram1, interferogram2)
+    noise_rms = np.sqrt(np.mean(np.square(transmittance)))
+    return 100 / noise_rms       </code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.calc_transmittance"><code class="name flex">
+<span>def <span class="ident">calc_transmittance</span></span>(<span>interferogram1, interferogram2)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Calculates the transmittance per wavenumber</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>interferogram1</code></strong></dt>
+<dd>The background spectrum, a np.array</dd>
+<dt><strong><code>interferogram2</code></strong></dt>
+<dd>The test sample spectrum, a np.array</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>A</code> <code>numpy</code> <code>array</code> of <code>transmittances.</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><strong><code>AssertionError</code></strong></dt>
+<dd>An error occurred if resolutions are different</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def calc_transmittance(interferogram1, interferogram2):
+    &#34;&#34;&#34;
+    Calculates the transmittance per wavenumber
+    
+    Args:
+        interferogram1: The background spectrum, a np.array
+        interferogram2: The test sample spectrum, a np.array
+
+    Returns:
+        A numpy array of transmittances. 
+    
+    Raises:
+        AssertionError: An error occurred if resolutions are different
+    &#34;&#34;&#34;
+    assert (len(interferogram1) == len(interferogram2)), &#39;Background spectrum has {} pts, sample spectrum has {} pts&#39;.format(len(interferogram1), len(interferogram2))
+    return np.divide(interferogram2, interferogram1)</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.fft_interferogram"><code class="name flex">
+<span>def <span class="ident">fft_interferogram</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Do the fft for the interferogram, including the apodization, etc. </p>
+<p>Args:
+data: interferogram to be filled
+Returns:
+fft spectrum: A numpy array of ffted data
+re spectrum: A real numpy array of ffted data
+im spectrum: A imaginary numpy array of ffted data</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def fft_interferogram(data):
+    &#34;&#34;&#34;
+    Do the fft for the interferogram, including the apodization, etc. 
+
+    Args: 
+        data: interferogram to be filled
+    Returns: 
+        fft spectrum: A numpy array of ffted data
+        re spectrum: A real numpy array of ffted data
+        im spectrum: A imaginary numpy array of ffted data
+    &#34;&#34;&#34;
+    
+    # find burst location
+    burst = np.argmax(data)
+    
+    # Apodize the whole interferogram with triangular function
+    data = np.multiply(data, Interferogram.triangular_signal(burst, len(data)))
+    
+    # zero fill
+    data = Interferogram.zero_fill(data)
+    
+    # Slicing to rotate about ZPD
+    data = np.concatenate((data[burst:], data[:burst]))
+    
+    # data is FFT&#39;d, producing real and imaginary data arrays.
+    ffted = np.fft.fft(data)
+    return ffted, ffted.real, ffted.imag</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.normalize_raw_data"><code class="name flex">
+<span>def <span class="ident">normalize_raw_data</span></span>(<span>data, mean)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>The mean of the data is subtracted from the data, brings baseline of data to 0</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def normalize_raw_data(data, mean):
+    &#34;&#34;&#34;The mean of the data is subtracted from the data, brings baseline of data to 0&#34;&#34;&#34;
+    return data - mean</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.triangular_signal"><code class="name flex">
+<span>def <span class="ident">triangular_signal</span></span>(<span>center, total_len)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def triangular_signal(center, total_len):
+    window = signal.triang(2*center-1)
+    try:
+        return np.concatenate((window, np.zeros(total_len-len(window))))
+    except:
+        return window[:total_len]</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.zero_fill"><code class="name flex">
+<span>def <span class="ident">zero_fill</span></span>(<span>data)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>FFT requires number of points in the interferogram be a power of 2.
+If it is not, then the size of the array is increased to the next higher power of 2
+and the added points are set to 0. </p>
+<p>Args:
+data: interferogram to be filled
+Returns:
+A numpy array of filled interferogram</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def zero_fill(data):
+    &#34;&#34;&#34;
+    FFT requires number of points in the interferogram be a power of 2.
+    If it is not, then the size of the array is increased to the next higher power of 2 
+    and the added points are set to 0. 
+    
+    Args: 
+        data: interferogram to be filled
+    Returns: 
+        A numpy array of filled interferogram
+    &#34;&#34;&#34;
+    for i in range(10, len(POWERS2)):
+        if POWERS2[i] &gt;= len(data):
+            break
+    return np.concatenate((data, np.zeros(POWERS2[i]-len(data))))</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="interferogram.Interferogram.fft"><code class="name flex">
+<span>def <span class="ident">fft</span></span>(<span>self, mean)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Calculates the spectra of the interferogram</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>interferogram2</code></strong></dt>
+<dd>The test sample spectrum, a np.array</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>A</code> <code>numpy</code> <code>array</code> of <code>transmittances.</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><strong><code>AssertionError</code></strong></dt>
+<dd>An error occurred if resolutions are different</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fft(self, mean):
+    &#34;&#34;&#34;
+    Calculates the spectra of the interferogram
+    
+    Args:
+        interferogram2: The test sample spectrum, a np.array
+
+    Returns:
+        A numpy array of transmittances. 
+    
+    Raises:
+        AssertionError: An error occurred if resolutions are different
+    &#34;&#34;&#34;
+    new_data = []
+
+    for line in self.raw_data:
+        
+        # Normalize data
+        new_line = Interferogram.normalize_raw_data(line, mean)
+        
+        # Zero fill the data
+        new_line = Interferogram.zero_fill(new_line)
+        
+        # Find the phase corrections
+        phase, re_phase, im_phase = self.mertz(new_line)
+        
+        # fft the interferogram
+        inter, re_inter, im_inter = Interferogram.fft_interferogram(line)
+        
+        # Record the spectra multiplied by correction
+        new_data.append(np.absolute(np.multiply(inter, phase)))
+    
+    return np.array(new_data)</code></pre>
+</details>
+</dd>
+<dt id="interferogram.Interferogram.mertz"><code class="name flex">
+<span>def <span class="ident">mertz</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Returns the phase correction data
+The real and imaginary data arrays are multiplied by the power spectrum</p>
+<p>Args:
+data: interferogram to be filled
+Returns:
+fft spectrum: A numpy array of data multiplied by the power spectrum
+re spectrum: A real numpy array of data multiplied by the power spectrum
+im spectrum: A imaginary numpy array of data multiplied by the power spectrum</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mertz(self, data):
+    &#34;&#34;&#34;
+    Returns the phase correction data
+    The real and imaginary data arrays are multiplied by the power spectrum
+
+    Args: 
+        data: interferogram to be filled
+    Returns: 
+        fft spectrum: A numpy array of data multiplied by the power spectrum 
+        re spectrum: A real numpy array of data multiplied by the power spectrum 
+        im spectrum: A imaginary numpy array of data multiplied by the power spectrum 
+    &#34;&#34;&#34;
+    # find burtst location
+    burst = np.argmax(data)
+    
+    # Add the apodization triangular phase correction
+    copied_burst = np.zeros(len(data))
+    copied_burst[burst-128:burst+128] = data[burst-128:burst+128]
+    copied_burst = np.multiply(copied_burst, Interferogram.triangular_signal(burst, len(copied_burst)))
+    
+    # Slicing to rotate about ZPD
+    copied_burst = np.concatenate((copied_burst[burst:], copied_burst[:burst]))
+    
+    # data is FFT&#39;d, producing real and imaginary data arrays.
+    ffted = np.fft.fft(copied_burst)
+    im_data = ffted.imag
+    re_data = ffted.real
+    
+    # Find power spectrum
+    power = np.absolute(ffted)
+    
+    # The real and imaginary data arrays are multiplied by the power spectrum 
+    return np.multiply(power, ffted), np.multiply(re_data, power), np.multiply(im_data, power)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="interferogram.Interferogram" href="#interferogram.Interferogram">Interferogram</a></code></h4>
+<ul class="two-column">
+<li><code><a title="interferogram.Interferogram.apodize" href="#interferogram.Interferogram.apodize">apodize</a></code></li>
+<li><code><a title="interferogram.Interferogram.calc_absorbance" href="#interferogram.Interferogram.calc_absorbance">calc_absorbance</a></code></li>
+<li><code><a title="interferogram.Interferogram.calc_snr" href="#interferogram.Interferogram.calc_snr">calc_snr</a></code></li>
+<li><code><a title="interferogram.Interferogram.calc_transmittance" href="#interferogram.Interferogram.calc_transmittance">calc_transmittance</a></code></li>
+<li><code><a title="interferogram.Interferogram.fft" href="#interferogram.Interferogram.fft">fft</a></code></li>
+<li><code><a title="interferogram.Interferogram.fft_interferogram" href="#interferogram.Interferogram.fft_interferogram">fft_interferogram</a></code></li>
+<li><code><a title="interferogram.Interferogram.mertz" href="#interferogram.Interferogram.mertz">mertz</a></code></li>
+<li><code><a title="interferogram.Interferogram.normalize_raw_data" href="#interferogram.Interferogram.normalize_raw_data">normalize_raw_data</a></code></li>
+<li><code><a title="interferogram.Interferogram.triangular_signal" href="#interferogram.Interferogram.triangular_signal">triangular_signal</a></code></li>
+<li><code><a title="interferogram.Interferogram.zero_fill" href="#interferogram.Interferogram.zero_fill">zero_fill</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
