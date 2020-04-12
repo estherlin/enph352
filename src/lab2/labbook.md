@@ -53,8 +53,8 @@ $$
 
 ## Objectives for Lab
 
-- [ ]  To become familiar with NMR principles and techniques (eh)
-- [ ]  Measure $T_1$, $T_2$ for a few samples like glycerin, mineral oil, and water
+- [ ] To become familiar with NMR principles and techniques (eh)
+- [ ] Measure $T_1$, $T_2$ for a few samples like glycerin, mineral oil, and water
 
 ## Overview of Procedure for the Lab
 0.  Getting started. 
@@ -109,7 +109,7 @@ Data collected (CH1: A+B, CH2: Detector)
 | Change A-width to one notch above halfway | ```A-width to one notch above halfway.JPG```:![IMG_5574](../../data/lab2/week1/A-width to one notch above halfway.JPG) | pulse strength 6.32 V and pulse width 19.6 us |
 | Switch mode to Man                       | ```Switch mode to Man.JPG```:![IMG_5575](../../data/lab2/week1/Switch mode to Man.JPG) | When you press man, it just manually sends the pulse. Off otherswise. |
 | Set the scope’s sweep rate to1ms/cm and repetition time to 10ms, then change the variable repetition time from 10% to 100%: 10% | ```10%repetition.jpg```:![IMG_5577 2](../../data/lab2/week1/10%repetition.jpg) | pulse strength: 3.22V pulse width: 16 us, pulse spacing: 1.16 ms |
-| Set the scope’s sweep rate to1ms/cm and repetition time to 10ms, then change the variable repetition time from 10% to 100%:100% | ```100%repetition.jpg```:![IMG_5576](../../data/lab2/week1/100%repetition.jpg) | pulse spacing: 12.8 ms, pulse spacing:   |
+| Set the scope’s sweep rate to1ms/cm and repetition time to 10ms, then change the variable repetition time from 10% to 100%: 100% | ```100%repetition.jpg```:![IMG_5576](../../data/lab2/week1/100%repetition.jpg) | pulse spacing: 12.8 ms, pulse spacing:   |
 
 *What is variable repetition time?*
 
@@ -137,7 +137,7 @@ This is what resonance looks like:
 
 >   ![resonance](../../data/lab2/week2/resonance.JPG)
 >
->   Resonance looks smooth
+>   Resonance looks smooth :)
 
 **Spin-Lattice Relaxation Time T1**
 
@@ -237,8 +237,8 @@ List of experiments done with CPMG to find T2:
 | ```glycerol-t2-3.DAT``` | delay: 6.01 ms, M-G off  repetition time 600 ms  frequency = 15.24442  21 pulses | 0.059           | ![glycerol-t2-1](../../data/lab2/week3/glycerol-t2-3.png) |
 | ```glycerol-t2-4```     | delay: 4.01 ms  M-G on  repetition time 600 ms  frequency = 15.24442  21 pulses | 0.066           | ![glycerol-t2-1](../../data/lab2/week3/glycerol-t2-4.png) |
 | ```glycerol-t2-5```     | delay: 2.01 ms,  M-G on,  repetition time 600 ms,  frequency = 15.24442,  21 pulses | 0.069           | ![glycerol-t2-1](../../data/lab2/week3/glycerol-t2-4.png) |
-| ```glycerol-t2-6```     | delay: 8.01 ms  M-G on  repetition time 600 ms  frequency = 15.24442  21 pulses | 0.077           | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t2-6.png) |
-| ```glycerol-t2-7```     | delay: 8.01 ms, M-G on, repetition time 600 ms, frequency = 15.24442, 21 pulses | 0.075           | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t2-6.png) |
+| ```glycerol-t2-6```     | delay: 8.01 ms  M-G on  repetition time 600 ms  frequency = 15.24442  21 pulses | 0.054           | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t2-6.png) |
+| ```glycerol-t2-7```     | delay: 8.01 ms, M-G on, repetition time 600 ms, frequency = 15.24442, 21 pulses (data wasn't actually recorded.) | -               |                                          |
 
 And example of what my spin echo looks like for experiment number 7 on the first list above:
 
@@ -248,7 +248,9 @@ And example of what my spin echo looks like for experiment number 7 on the first
 
 I tried the M-G on switch by comparing ```glycerol-t2-3``` results with ```glycerol-t2-1``` and ```glycerol-t2-2```. The T2 measured in ```glycerol-t2-3``` is much lower. This makes sense, because when M-G is on, it reduces the error. 
 
-So I'm pretty confused by this. It seems like my T2 changes based on delay time. At least it changes consistently! ```glycerol-t2-1``` and ```glycerol-t2-2``` are the same experiement (same parameters) and their values of T2 are pretty similar. ```glycerol-t2-6``` and ```glycerol-t2-7``` are also the the same experiment and their T2 values are similar too. Meanwhile, the T2 values measured with a delay of 2 or 4 ms is also different. If I am to trust any of these measurements, I would trust the one with the 8ms delay time. THis is because more taime has passed and hopefully less interactions will be taken into account. 
+So I'm pretty confused by this. It seems like my T2 changes based on delay time. At least it changes consistently! ```glycerol-t2-1``` and ```glycerol-t2-2``` are the same experiement (same parameters) and their values of T2 are pretty similar. ```glycerol-t2-6``` and ```glycerol-t2-7``` are also the the same experiment and their T2 values are similar too. Meanwhile, the T2 values measured with a delay of 2 or 4 ms is also different. If I am to trust any of these measurements, I would trust the one with the 8ms delay time. This is because more taime has passed and hopefully less interactions will be taken into account. 
+
+Originally, I did not take into account the first peak into the fits… Why would I not do that? That's so dumb. Here is a picture of what it would look like if I didnt. 
 
 >   ![more_t2](../../data/lab2/week3/more_t2.png)
 >
@@ -265,7 +267,18 @@ Talked to Dr. Reinsberg. There is another way we can find T2. We can use only on
 7.  glycerol-t2-14: delay 48.0 ms
 8.  glycerol-t2-15: delay 70.0 ms
 
-Around a delay of 70 ms, I would say that the FID magnitude drops to less than a third of the original magnitude. So I'd say that the T2 is around 70 ms, with corresponds to our measurement above.
+I've done analysis on the following:
+
+| Filename       | Delay Time [ms] | Image                                    |
+| -------------- | --------------- | ---------------------------------------- |
+| glycerol-t2-8  | 6.01            | ![glycerol-t2-8](../../data/lab2/week3/glycerol-t2-8.png) There is a voltage drop of 0.57 V over 2TE = 12.02 ms. Ratio of 1st peak to 2nd: 0.7092 |
+| glycerol-t2-9  | 10.01           | ![glycerol-t2-9](../../data/lab2/week3/glycerol-t2-9.png) There is a voltage drop of 0.75 V over 2TE = 20.02 ms. Ratio of 1st peak to 2nd: 0.6231 |
+|                |                 |                                          |
+| glycerol-t2-11 | 20.0            | ![glycerol-t2-11](../../data/lab2/week3/glycerol-t2-11.png) There is a voltage drop of 0.8 V over 2TE = 40.0 ms. Ratio of 1st peak to 2nd: 0.5556 |
+| glycerol-t2-13 | 45              | ![glycerol-t2-13](../../data/lab2/week3/glycerol-t2-13.png)There is a voltage drop of 1.37 V over 2TE = 90.0 ms. Ratio of 1st peak to 2nd: 0.2634 |
+| glycerol-t2-15 | 70.0            | ![glycerol-t2-15](../../data/lab2/week3/glycerol-t2-15.png)There is a voltage drop of 1.29 V over 2TE = 140.0 ms. Ratio of 1st peak to 2nd: 0.1834 |
+
+Around a delay of 90 ms, I would say that the FID magnitude drops to less than a third of the original magnitude. So I'd say that the T2 is around 70 ms, with corresponds to our measurement above.
 
 A scaling of $1$ V was used on the oscilloscope, and the oscilloscope was able to output voltage readings on the order of 0.01 V. Applying this uncertainty of $\pm 0.01$ V to our fit, a variation of $\pm 5$ ms was found in the exponential fit. So, this undertainty of 5 ms should be applied to all of our time constant measurements.
 
@@ -279,14 +292,14 @@ Resonance at: 15.24342 MHz. This was done slightly off resonance to see a few wi
 | ```glycerol-t1-2.DAT```  | 8           | 1.6           | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-2.png) |
 | ```glycerol-t1-3.DAT```  | 0.1         | 1.92          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-3.png) |
 | ```glycerol-t1-4.DAT```  | 0.2         | 1.87          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-4.png) |
-| ```glycerol-t1-5.DAT```  | 0.4         | 1.78          |                                          |
-| ```glycerol-t1-6.DAT```  | 0.6         | 1.73          |                                          |
-| ```glycerol-t1-7.DAT```  | 0.8         | 1.64          |                                          |
-| ```glycerol-t1-8.DAT```  | 1.0         | 1.52          |                                          |
-| ```glycerol-t1-9.DAT```  | 2.0         | 1.07          |                                          |
-|                          |             |               |                                          |
-| ```glycerol-t1-11.DAT``` | 10.0        | 1.25          |                                          |
-| ```glycerol-t1-12.DAT``` | 20.0        | 0.56          |                                          |
+| ```glycerol-t1-5.DAT```  | 0.4         | 1.78          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-5.png) |
+| ```glycerol-t1-6.DAT```  | 0.6         | 1.73          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-6.png) |
+| ```glycerol-t1-7.DAT```  | 0.8         | 1.64          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-7.png) |
+| ```glycerol-t1-8.DAT```  | 1.0         | 1.52          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-8.png) |
+| ```glycerol-t1-9.DAT```  | 2.0         | 1.07          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-9.png) |
+| glycerol-t1-10.DAT       | --          | --            | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-10.png) |
+| ```glycerol-t1-11.DAT``` | 10.0        | 1.25          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-11.png) |
+| ```glycerol-t1-12.DAT``` | 20.0        | 0.56          | ![glycerol-t2-6](../../data/lab2/week3/glycerol-t1-12.png) |
 
 The lower times are basically useless, I need data points from longer times. I'm so dumb, I should have looked at a wider range of time values. sigh. 
 
